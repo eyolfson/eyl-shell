@@ -1,0 +1,11 @@
+/src/client/config.h
+/src/protocol/*.c
+/src/protocol/*.h
+
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+install_manifest.txt
+Makefile
+
+/eyl-shell-client

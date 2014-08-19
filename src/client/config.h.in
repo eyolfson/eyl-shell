@@ -1,0 +1,4 @@
+#cmakedefine HAVE_EXECINFO_H 1
+#cmakedefine HAVE_MKOSTEMP 1
+#cmakedefine HAVE_POSIX_FALLOCATE 1
+#cmakedefine HAVE_STRCHRNUL 1
