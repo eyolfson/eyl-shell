@@ -23,6 +23,7 @@
 
 #include "config.h"
 
+#include <errno.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -34,7 +35,9 @@
 
 #define ARRAY_LENGTH(a) (sizeof (a) / sizeof (a)[0])
 
+#ifdef HAVE_WEBP
 #include <webp/decode.h>
+#endif
 
 static int
 stride_for_width(int width)
@@ -281,6 +284,8 @@ load_png(FILE *fp)
 	return pixman_image;
 }
 
+#ifdef HAVE_WEBP
+
 static pixman_image_t *
 load_webp(FILE *fp)
 {
@@ -345,6 +350,9 @@ load_webp(FILE *fp)
 					config.output.u.RGBA.stride);
 }
 
+#endif
+
+
 struct image_loader {
 	unsigned char header[4];
 	int header_size;
@@ -354,7 +362,9 @@ struct image_loader {
 static const struct image_loader loaders[] = {
 	{ { 0x89, 'P', 'N', 'G' }, 4, load_png },
 	{ { 0xff, 0xd8 }, 2, load_jpeg },
+#ifdef HAVE_WEBP
 	{ { 'R', 'I', 'F', 'F' }, 4, load_webp }
+#endif
 };
 
 pixman_image_t *
@@ -365,12 +375,18 @@ load_image(const char *filename)
 	FILE *fp;
 	unsigned int i;
 
-	fp = fopen(filename, "rb");
-	if (fp == NULL)
+	if (!filename || !*filename)
 		return NULL;
+
+	fp = fopen(filename, "rb");
+	if (!fp) {
+		fprintf(stderr, "%s: %s\n", filename, strerror(errno));
+		return NULL;
+	}
 
 	if (fread(header, sizeof header, 1, fp) != 1) {
 		fclose(fp);
+		fprintf(stderr, "%s: unable to read file header\n", filename);
 		return NULL;
 	}
 
@@ -386,10 +402,13 @@ load_image(const char *filename)
 	fclose(fp);
 
 	if (i == ARRAY_LENGTH(loaders)) {
-		fprintf(stderr, "unrecognized file header for %s: "
+		fprintf(stderr, "%s: unrecognized file header "
 			"0x%02x 0x%02x 0x%02x 0x%02x\n",
 			filename, header[0], header[1], header[2], header[3]);
 		image = NULL;
+	} else if (!image) {
+		/* load probably printed something, but just in case */
+		fprintf(stderr, "%s: error reading image\n", filename);
 	}
 
 	return image;

@@ -49,6 +49,7 @@ configure_file(src/client/config.h.in src/client/config.h)
 add_definitions(
   -DDATADIR="/usr/share"
   -DBINDIR="/usr/bin"
+  -DLIBEXECDIR="/usr/lib/weston"
   -D_GNU_SOURCE
   -DUSE_RESIZE_POOL
 )
