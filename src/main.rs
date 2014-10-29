@@ -6,7 +6,8 @@ fn main() {
         None        => fail!("finding homedir")
     };
     let mut logfile = std::io::File::create(&logfile_path);
-    let display = wayland::Display::new();
+    let mut display = wayland::Display::new();
+    display.dispatch();
     match logfile.write(b"Connected to display\n") {
         Ok(()) => (),
         Err(_) => fail!("writing to logfile")

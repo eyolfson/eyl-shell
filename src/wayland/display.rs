@@ -14,6 +14,18 @@ impl Display {
             Display { ptr: ptr }
         }
     }
+    pub fn dispatch(&mut self) {
+        unsafe {
+            let ret = raw::wl_display_dispatch(self.ptr);
+            assert!(ret >= 0);
+        }
+    }
+    pub fn flush(&mut self) {
+        unsafe {
+            let ret = raw::wl_display_flush(self.ptr);
+            assert!(ret >= 0);
+        }
+    }
 }
 
 impl Drop for Display {
