@@ -2,7 +2,7 @@
 
 extern crate libc;
 
-use self::libc::{c_char, c_int, c_void, uint32_t};
+pub use self::libc::{c_char, c_int, c_void, uint32_t};
 
 pub mod protocol;
 pub mod util;
@@ -25,7 +25,6 @@ extern {
 
     pub fn wl_display_connect(name: *const c_char) -> *mut wl_display;
     pub fn wl_display_disconnect(display: *mut wl_display);
-
     pub fn wl_display_dispatch(display: *mut wl_display) -> c_int;
     pub fn wl_display_dispatch_queue(display: *mut wl_display,
                                      queue: *mut wl_event_queue) -> c_int;

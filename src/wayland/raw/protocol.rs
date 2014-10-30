@@ -4,7 +4,7 @@ use std::ptr;
 
 use raw;
 
-use super::libc::{c_void, uint32_t};
+use super::{c_void, uint32_t};
 
 static WL_DISPLAY_GET_REGISTRY: uint32_t = 1;
 

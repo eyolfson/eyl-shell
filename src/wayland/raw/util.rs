@@ -1,8 +1,6 @@
 #![allow(non_camel_case_types)]
 
-extern crate libc;
-
-use self::libc::{c_char, c_int};
+use super::{c_char, c_int};
 
 #[repr(C)]
 struct wl_message {
