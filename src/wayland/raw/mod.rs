@@ -2,9 +2,10 @@
 
 extern crate libc;
 
-use self::libc::{c_char, c_int, c_void};
+use self::libc::{c_char, c_int, c_void, uint32_t};
 
-mod util;
+pub mod protocol;
+pub mod util;
 
 #[repr(C)]
 pub struct wl_list {
@@ -20,6 +21,8 @@ pub type wl_registry = c_void;
 
 #[link(name = "wayland-client")]
 extern {
+    pub static wl_registry_interface: util::wl_interface;
+
     pub fn wl_display_connect(name: *const c_char) -> *mut wl_display;
     pub fn wl_display_disconnect(display: *mut wl_display);
 
@@ -39,6 +42,11 @@ extern {
         proxy: *mut wl_proxy,
         implementation: *mut extern fn(c_void) -> c_void,
         data: *mut c_void) -> c_int;
+
+    pub fn wl_proxy_marshal_constructor(proxy: *mut wl_proxy,
+                                        opcode: uint32_t,
+                                        interface: *const util::wl_interface,
+                                        ...) -> *mut wl_proxy;
 
     pub fn wl_list_init(list: *mut wl_list);
     pub fn wl_list_insert(list: *mut wl_list, elm: *mut wl_list);

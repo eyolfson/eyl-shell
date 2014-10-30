@@ -14,6 +14,7 @@ impl Display {
             Display { ptr: ptr }
         }
     }
+    pub unsafe fn ptr(&mut self) -> *mut raw::wl_display { self.ptr }
     pub fn dispatch(&mut self) {
         unsafe {
             let ret = raw::wl_display_dispatch(self.ptr);
