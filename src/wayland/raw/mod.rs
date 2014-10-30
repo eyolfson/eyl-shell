@@ -42,7 +42,7 @@ extern {
         proxy: *mut wl_proxy,
         implementation: *mut extern fn(c_void) -> c_void,
         data: *mut c_void) -> c_int;
-
+    pub fn wl_proxy_destroy(proxy: *mut wl_proxy);
     pub fn wl_proxy_marshal_constructor(proxy: *mut wl_proxy,
                                         opcode: uint32_t,
                                         interface: *const util::wl_interface,
