@@ -19,7 +19,7 @@ extern fn global(
     let n = unsafe {c_str::CString::new(interface, false)};
     match n.as_str() {
         Some(ref x) => println!("{}", x),
-        None => fail!("cannot convert interface to str")
+        None => panic!("cannot convert interface to str")
     }
 }
 
