@@ -21,6 +21,12 @@ impl Display {
             assert!(ret >= 0);
         }
     }
+    pub fn roundtrip(&mut self) {
+        unsafe {
+            let ret = raw::wl_display_roundtrip(self.ptr);
+            assert!(ret >= 0);
+        }
+    }
     pub fn flush(&mut self) {
         unsafe {
             let ret = raw::wl_display_flush(self.ptr);

@@ -44,7 +44,7 @@ extern {
     pub fn wl_display_roundtrip(display: *mut wl_display) -> c_int;
     pub fn wl_proxy_add_listener(
         proxy: *mut wl_proxy,
-        implementation: *mut extern fn(c_void) -> c_void,
+        implementation: *mut extern fn(),
         data: *mut c_void
     ) -> c_int;
     pub fn wl_proxy_destroy(proxy: *mut wl_proxy);
