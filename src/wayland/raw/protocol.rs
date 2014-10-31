@@ -10,14 +10,14 @@ static WL_DISPLAY_GET_REGISTRY: uint32_t = 1;
 
 #[repr(C)]
 pub struct wl_registry_listener {
-    global: extern fn(
+    pub global: extern fn(
         data: *mut c_void,
         wl_registry: *mut raw::wl_registry,
         name: uint32_t,
         interface: *const c_char,
         version: uint32_t
     ),
-    global_remove: extern fn(
+    pub global_remove: extern fn(
         data: *mut c_void,
         wl_registry: *mut raw::wl_registry,
         name: uint32_t
