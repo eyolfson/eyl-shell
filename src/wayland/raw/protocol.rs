@@ -7,6 +7,7 @@ use raw;
 use super::{c_char, c_int, c_void, uint32_t};
 
 static WL_DISPLAY_GET_REGISTRY: uint32_t = 1;
+static WL_REGISTRY_BIND: uint32_t = 0;
 
 #[repr(C)]
 pub struct wl_registry_listener {
@@ -49,4 +50,22 @@ pub unsafe fn wl_registry_add_listener(
         listener as *mut extern fn(),
         data
     )
+}
+
+pub unsafe fn wl_registry_bind(
+    wl_registry: *mut raw::wl_registry,
+    name: uint32_t,
+    interface: *const raw::util::wl_interface,
+    version: uint32_t
+) -> *mut c_void {
+    let id = raw::wl_proxy_marshal_constructor(
+        wl_registry as *mut raw::wl_proxy,
+        WL_REGISTRY_BIND,
+        interface,
+        name,
+        (*interface).name,
+        version,
+        ptr::null::<*mut c_void>()
+    );
+    id as *mut c_void
 }

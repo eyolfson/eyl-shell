@@ -42,18 +42,25 @@ extern {
         queue: *mut wl_event_queue
     ) -> c_int;
     pub fn wl_display_roundtrip(display: *mut wl_display) -> c_int;
+    // wl_proxy
     pub fn wl_proxy_add_listener(
         proxy: *mut wl_proxy,
         implementation: *mut extern fn(),
         data: *mut c_void
     ) -> c_int;
     pub fn wl_proxy_destroy(proxy: *mut wl_proxy);
+    pub fn wl_proxy_marshal(
+        p: *mut wl_proxy,
+        opcode: uint32_t,
+        ...
+    );
     pub fn wl_proxy_marshal_constructor(
         proxy: *mut wl_proxy,
         opcode: uint32_t,
         interface: *const util::wl_interface,
         ...
     ) -> *mut wl_proxy;
+    // wl_list
     pub fn wl_list_init(list: *mut wl_list);
     pub fn wl_list_insert(list: *mut wl_list, elm: *mut wl_list);
     pub fn wl_list_remove(elm: *mut wl_list);
