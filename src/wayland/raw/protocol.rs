@@ -6,8 +6,15 @@ use raw;
 
 use super::{c_char, c_int, c_void, uint32_t};
 
+static WL_COMPOSITOR_CREATE_SURFACE: uint32_t = 0;
+static WL_COMPOSITOR_CREATE_REGION: uint32_t = 1;
 static WL_DISPLAY_GET_REGISTRY: uint32_t = 1;
 static WL_REGISTRY_BIND: uint32_t = 0;
+
+pub type wl_compositor = c_void;
+pub type wl_region = c_void;
+pub type wl_registry = c_void;
+pub type wl_surface = c_void;
 
 #[repr(C)]
 pub struct wl_registry_listener {
@@ -25,13 +32,40 @@ pub struct wl_registry_listener {
     )
 }
 
+pub unsafe fn wl_compositor_create_surface(
+    wl_compositor: *mut wl_compositor
+) -> *mut wl_surface {
+    let id = raw::wl_proxy_marshal_constructor(
+        wl_compositor as *mut raw::wl_proxy,
+        WL_COMPOSITOR_CREATE_SURFACE,
+        & raw::wl_surface_interface,
+        ptr::null_mut::<c_void>()
+    );
+    id as *mut wl_surface
+}
+pub unsafe fn wl_compositor_create_region(
+    wl_compositor: *mut wl_compositor
+) -> *mut wl_region {
+    let id = raw::wl_proxy_marshal_constructor(
+        wl_compositor as *mut raw::wl_proxy,
+        WL_COMPOSITOR_CREATE_REGION,
+        & raw::wl_region_interface,
+        ptr::null_mut::<c_void>()
+    );
+    id as *mut wl_region
+}
+
+pub unsafe fn wl_compositor_destroy(wl_compositor: *mut wl_compositor) {
+    raw::wl_proxy_destroy(wl_compositor as *mut raw::wl_proxy);
+}
+
 pub unsafe fn wl_display_get_registry(display: *mut raw::wl_display)
                                       -> *mut raw::wl_registry {
     let registry = raw::wl_proxy_marshal_constructor(
         display as *mut raw::wl_proxy,
         WL_DISPLAY_GET_REGISTRY,
         & raw::wl_registry_interface,
-        ptr::null::<*mut c_void>()
+        ptr::null_mut::<c_void>()
     );
     registry as *mut raw::wl_registry
 }

@@ -16,11 +16,20 @@ extern fn global(
     interface: *const raw::c_char,
     version: raw::uint32_t
 ) {
+    unsafe {
+        println!("{}", raw::strcmp(interface, raw::wl_compositor_interface.name));
+    }
     let n = unsafe {c_str::CString::new(interface, false)};
     match n.as_str() {
         Some(ref x) => println!("{}", x),
         None => panic!("cannot convert interface to str")
     }
+    let x = unsafe {c_str::CString::new((raw::wl_compositor_interface).name, false) };
+    match x.as_str() {
+        Some(ref y) => println!("{}", y),
+        None => panic!("cannot convert interface to str")
+    }
+    
 }
 
 #[allow(unused_variables)]
@@ -31,6 +40,7 @@ extern fn global_remove(
 ) {
 
 }
+
 static REGISTRY_LISTENER: raw::protocol::wl_registry_listener =
     raw::protocol::wl_registry_listener {
         global: global,
