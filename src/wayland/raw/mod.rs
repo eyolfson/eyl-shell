@@ -3,7 +3,9 @@
 extern crate libc;
 
 pub use self::libc::{c_char, c_int, c_void, uint32_t, strcmp};
-pub use self::protocol::{wl_registry};
+pub use self::protocol::{wl_compositor, wl_registry};
+pub use self::protocol::{wl_compositor_destroy};
+pub use self::protocol::{wl_registry_bind};
 
 pub mod protocol;
 pub mod util;
