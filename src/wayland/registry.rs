@@ -28,7 +28,7 @@ extern fn global(
                 & raw::wl_compositor_interface,
                 version
             );
-        let c = Compositor::new(compositor);
+        let c = Compositor::from_ptr(compositor as *mut raw::wl_compositor);
         }
     }
     let interface_c_str = unsafe { c_str::CString::new(interface, false) };
@@ -46,9 +46,8 @@ extern fn global_remove(
 
 }
 
-
-static REGISTRY_LISTENER: raw::protocol::wl_registry_listener =
-    raw::protocol::wl_registry_listener {
+static REGISTRY_LISTENER: raw::wl_registry_listener =
+    raw::wl_registry_listener {
         global: global,
         global_remove: global_remove
     };
@@ -56,13 +55,13 @@ static REGISTRY_LISTENER: raw::protocol::wl_registry_listener =
 impl Registry {
     pub fn new(display: &mut Display) -> Registry {
         unsafe {
-            let ptr = raw::protocol::wl_display_get_registry(display.ptr());
+            let ptr = raw::wl_display_get_registry(display.to_ptr());
             Registry { ptr: ptr }
         }
     }
     pub fn add_listener(&mut self) {
         unsafe {
-            raw::protocol::wl_registry_add_listener(
+            raw::wl_registry_add_listener(
                 self.ptr,
                 &REGISTRY_LISTENER,
                 ptr::null_mut()
@@ -74,7 +73,7 @@ impl Registry {
 impl Drop for Registry {
     fn drop(&mut self) {
         unsafe {
-            raw::protocol::wl_registry_destroy(self.ptr);
+            raw::wl_registry_destroy(self.ptr);
         }
     }
 }

@@ -5,7 +5,7 @@ pub struct Compositor {
 }
 
 impl Compositor {
-    pub fn new(ptr: *mut raw::wl_compositor) -> Compositor {
+    pub unsafe fn from_ptr(ptr: *mut raw::wl_compositor) -> Compositor {
         Compositor { ptr: ptr }
     }
 }
