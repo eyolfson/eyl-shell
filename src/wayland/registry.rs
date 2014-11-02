@@ -30,18 +30,11 @@ extern fn global(
             );
         let c = Compositor::new(compositor);
         }
-        println!("compositor!");
     }
-    // let n = unsafe {c_str::CString::new(interface, false)};
-    // match n.as_str() {
-    //     Some(ref x) => println!("{}", x),
-    //     None => panic!("cannot convert interface to str")
-    // }
-    // let x = unsafe {c_str::CString::new((raw::wl_compositor_interface).name, false) };
-    // match x.as_str() {
-    //     Some(ref y) => println!("{}", y),
-    //     None => panic!("cannot convert interface to str")
-    // }
+    let interface_c_str = unsafe { c_str::CString::new(interface, false) };
+    let interface_str = interface_c_str.as_str().unwrap();
+    println!("interface: {}, name: {}, version: {}",
+             interface_str, name, version);
 }
 
 #[allow(unused_variables)]

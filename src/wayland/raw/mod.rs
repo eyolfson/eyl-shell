@@ -16,9 +16,9 @@ pub struct wl_list {
     pub next: *mut wl_list,
 }
 
-pub type wl_display = c_void;
-pub type wl_event_queue = c_void;
-pub type wl_proxy = c_void;
+#[repr(C)] pub struct wl_display;
+#[repr(C)] pub struct wl_event_queue;
+#[repr(C)] pub struct wl_proxy;
 
 #[link(name = "wayland-client")]
 extern {
