@@ -1,8 +1,8 @@
 #![allow(non_camel_case_types)]
 
 extern crate libc;
-pub use raw::libc::{c_char, c_int, c_void, size_t, strcmp, uint32_t};
 
+pub use raw::libc::{c_char, c_int, c_void, size_t, strcmp, uint32_t};
 pub use raw::protocol::compositor::{
     wl_compositor,
     wl_compositor_create_surface,
