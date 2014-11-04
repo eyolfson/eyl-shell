@@ -1,6 +1,4 @@
-use std::c_str;
 use std::mem;
-use std::ptr;
 
 use Display;
 use Compositor;
@@ -55,7 +53,14 @@ impl Registry {
     pub fn new(display: &mut Display) -> Registry {
         unsafe {
             let ptr = raw::wl_display_get_registry(display.to_ptr());
-            Registry { ptr: ptr, compositor: None }
+            let mut r = Registry { ptr: ptr, compositor: None };
+            raw::wl_registry_add_listener(
+                ptr,
+                &REGISTRY_LISTENER,
+                mem::transmute(&mut r)
+            );
+            display.roundtrip();
+            r
         }
     }
     pub fn get_compositor(&mut self) -> &mut Compositor {

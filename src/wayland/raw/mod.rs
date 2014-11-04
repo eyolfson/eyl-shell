@@ -2,47 +2,36 @@
 
 extern crate libc;
 
-pub use self::libc::{
-    c_char,
-    c_int,
-    c_void,
-    uint32_t,
-    strcmp
-};
-pub use self::protocol::{
+pub use raw::libc::{c_char, c_int, c_void, size_t, strcmp, uint32_t};
+
+pub use raw::protocol::{
     wl_compositor,
     wl_compositor_create_surface,
     wl_compositor_destroy,
 };
-pub use self::protocol::{
+pub use raw::protocol::registry::{
     wl_registry,
     wl_registry_add_listener,
     wl_registry_bind,
     wl_registry_destroy,
     wl_registry_listener,
 };
-pub use self::protocol::{
+pub use raw::protocol::{
     wl_display_get_registry,
 };
-pub use self::protocol::{
+pub use raw::protocol::{
     wl_surface,
     wl_surface_destroy,
 };
-pub use self::protocol::{
+pub use raw::protocol::{
     wl_region,
     wl_region_destroy,
 };
 
-pub use self::util::{wl_interface, wl_message};
+pub use raw::util::{wl_array, wl_interface, wl_list, wl_message};
 
-mod protocol;
-mod util;
-
-#[repr(C)]
-pub struct wl_list {
-    pub prev: *mut wl_list,
-    pub next: *mut wl_list,
-}
+pub mod protocol;
+pub mod util;
 
 #[repr(C)] pub struct wl_display;
 #[repr(C)] pub struct wl_event_queue;
@@ -53,6 +42,7 @@ extern {
     pub static wl_compositor_interface: util::wl_interface;
     pub static wl_region_interface: util::wl_interface;
     pub static wl_registry_interface: util::wl_interface;
+    pub static wl_shell_interface: util::wl_interface;
     pub static wl_surface_interface: util::wl_interface;
 
     pub fn wl_display_connect(name: *const c_char) -> *mut wl_display;
