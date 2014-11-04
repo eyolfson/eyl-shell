@@ -1,3 +1,7 @@
+#![feature(globs)]
+
+extern crate libc;
+
 pub use compositor::Compositor;
 pub use display::Display;
 pub use list::List;

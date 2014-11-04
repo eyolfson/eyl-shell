@@ -1,6 +1,6 @@
 #![allow(non_camel_case_types)]
 
-use raw::{c_char, c_int, c_void, size_t};
+use libc::{c_char, c_int, c_void, size_t};
 
 #[repr(C)]
 pub struct wl_array {
@@ -8,7 +8,6 @@ pub struct wl_array {
     pub alloc: size_t,
     pub data: *mut c_void,
 }
-
 
 #[repr(C)]
 pub struct wl_interface {

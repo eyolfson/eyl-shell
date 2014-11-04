@@ -1,3 +1,4 @@
+use libc::{c_char, c_void, strcmp, uint32_t};
 use std::mem;
 
 use Display;
@@ -11,15 +12,15 @@ pub struct Registry {
 
 #[allow(unused_variables)]
 extern fn global(
-    data: *mut raw::c_void,
+    data: *mut c_void,
     registry: *mut raw::wl_registry,
-    name: raw::uint32_t,
-    interface: *const raw::c_char,
-    version: raw::uint32_t
+    name: uint32_t,
+    interface: *const c_char,
+    version: uint32_t
 ) {
     unsafe {
         let r: &mut Registry = mem::transmute(data);
-        if raw::strcmp(interface, raw::wl_compositor_interface.name) == 0 {
+        if strcmp(interface, raw::wl_compositor_interface.name) == 0 {
             let ptr = raw::wl_registry_bind(
                 registry,
                 name,
@@ -36,9 +37,9 @@ extern fn global(
 
 #[allow(unused_variables)]
 extern fn global_remove(
-    data: *mut raw::c_void,
+    data: *mut c_void,
     registry: *mut raw::wl_registry,
-    name: raw::uint32_t
+    name: uint32_t
 ) {
 
 }

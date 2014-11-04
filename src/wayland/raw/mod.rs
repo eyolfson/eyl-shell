@@ -1,44 +1,19 @@
 #![allow(non_camel_case_types)]
 
-extern crate libc;
+pub use raw::protocol::wl_compositor::*;
+pub use raw::protocol::wl_display::*;
+pub use raw::protocol::wl_region::*;
+pub use raw::protocol::wl_registry::*;
+pub use raw::protocol::wl_shell::*;
+pub use raw::protocol::wl_surface::*;
+pub use raw::types::listeners::*;
+pub use raw::types::objects::*;
+pub use raw::types::utils::*;
 
-pub use raw::libc::{c_char, c_int, c_void, size_t, strcmp, uint32_t};
-pub use raw::protocol::compositor::{
-    wl_compositor,
-    wl_compositor_create_surface,
-    wl_compositor_destroy,
-};
-pub use raw::protocol::display::{
-    wl_display_get_registry,
-};
-pub use raw::protocol::region::{
-    wl_region,
-    wl_region_destroy,
-};
-pub use raw::protocol::registry::{
-    wl_registry,
-    wl_registry_add_listener,
-    wl_registry_bind,
-    wl_registry_destroy,
-    wl_registry_listener,
-};
-pub use raw::protocol::surface::{
-    wl_surface,
-    wl_surface_destroy,
-};
-pub use raw::util::{wl_array, wl_interface, wl_list, wl_message};
+use libc::{c_char, c_int, c_void, uint32_t};
 
 pub mod protocol;
-pub mod util;
-
-#[repr(C)]
-pub struct wl_display;
-
-#[repr(C)]
-pub struct wl_event_queue;
-
-#[repr(C)]
-pub struct wl_proxy;
+pub mod types;
 
 #[link(name = "wayland-client")]
 extern {
@@ -98,7 +73,7 @@ extern {
     pub fn wl_proxy_marshal_constructor(
         proxy: *mut wl_proxy,
         opcode: uint32_t,
-        interface: *const util::wl_interface,
+        interface: *const wl_interface,
         ...
     ) -> *mut wl_proxy;
     // wl_list

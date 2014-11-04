@@ -1,14 +1,9 @@
 #![allow(non_camel_case_types)]
 
-use raw::{
-    uint32_t,
-    wl_proxy,
-    wl_proxy_destroy,
-    wl_proxy_marshal,
-};
+use libc::uint32_t;
 
-#[repr(C)]
-pub struct wl_surface;
+use raw;
+use raw::types::objects;
 
 pub static WL_SURFACE_DESTROY: uint32_t = 0;
 pub static WL_SURFACE_ATTACH: uint32_t = 1;
@@ -21,7 +16,10 @@ pub static WL_SURFACE_SET_BUFFER_TRANSFORM: uint32_t = 7;
 pub static WL_SURFACE_SET_BUFFER_SCALE: uint32_t = 8;
 
 #[inline]
-pub unsafe fn wl_surface_destroy(surface: *mut wl_surface) {
-    wl_proxy_marshal(surface as *mut wl_proxy, WL_SURFACE_DESTROY);
-    wl_proxy_destroy(surface as *mut wl_proxy);
+pub unsafe fn wl_surface_destroy(wl_surface: *mut objects::wl_surface) {
+    raw::wl_proxy_marshal(
+        wl_surface as *mut objects::wl_proxy,
+        WL_SURFACE_DESTROY
+    );
+    raw::wl_proxy_destroy(wl_surface as *mut objects::wl_proxy);
 }
