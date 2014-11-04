@@ -1,13 +1,19 @@
 #![allow(non_camel_case_types)]
 
 extern crate libc;
-
 pub use raw::libc::{c_char, c_int, c_void, size_t, strcmp, uint32_t};
 
-pub use raw::protocol::{
+pub use raw::protocol::compositor::{
     wl_compositor,
     wl_compositor_create_surface,
     wl_compositor_destroy,
+};
+pub use raw::protocol::display::{
+    wl_display_get_registry,
+};
+pub use raw::protocol::region::{
+    wl_region,
+    wl_region_destroy,
 };
 pub use raw::protocol::registry::{
     wl_registry,
@@ -16,18 +22,10 @@ pub use raw::protocol::registry::{
     wl_registry_destroy,
     wl_registry_listener,
 };
-pub use raw::protocol::{
-    wl_display_get_registry,
-};
-pub use raw::protocol::{
+pub use raw::protocol::surface::{
     wl_surface,
     wl_surface_destroy,
 };
-pub use raw::protocol::{
-    wl_region,
-    wl_region_destroy,
-};
-
 pub use raw::util::{wl_array, wl_interface, wl_list, wl_message};
 
 pub mod protocol;

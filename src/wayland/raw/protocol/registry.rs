@@ -14,7 +14,7 @@ use raw::{
     uint32_t,
 };
 
-static WL_REGISTRY_BIND: uint32_t = 0;
+pub static WL_REGISTRY_BIND: uint32_t = 0;
 
 #[repr(C)]
 pub struct wl_registry;

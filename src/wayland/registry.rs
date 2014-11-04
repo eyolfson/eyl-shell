@@ -69,15 +69,6 @@ impl Registry {
             None => panic!("compositor not set"),
         }
     }
-    pub fn add_listener(&mut self) {
-        unsafe {
-            raw::wl_registry_add_listener(
-                self.ptr,
-                &REGISTRY_LISTENER,
-                mem::transmute(self)
-            );
-        }
-    }
 }
 
 impl Drop for Registry {
