@@ -1,5 +1,3 @@
-#![feature(macro_rules)]
-
 pub use compositor::Compositor;
 pub use display::Display;
 pub use list::List;
