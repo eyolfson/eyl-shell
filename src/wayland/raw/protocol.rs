@@ -9,7 +9,19 @@ use super::{c_char, c_int, c_void, uint32_t};
 static WL_COMPOSITOR_CREATE_SURFACE: uint32_t = 0;
 static WL_COMPOSITOR_CREATE_REGION: uint32_t = 1;
 static WL_DISPLAY_GET_REGISTRY: uint32_t = 1;
+static WL_REGION_DESTROY: uint32_t = 0;
+static WL_REGION_ADD: uint32_t = 1;
+static WL_REGION_SUBTRACT: uint32_t = 2;
 static WL_REGISTRY_BIND: uint32_t = 0;
+static WL_SURFACE_DESTROY: uint32_t = 0;
+static WL_SURFACE_ATTACH: uint32_t = 1;
+static WL_SURFACE_DAMAGE: uint32_t = 2;
+static WL_SURFACE_FRAME: uint32_t = 3;
+static WL_SURFACE_SET_OPAQUE_REGION: uint32_t = 4;
+static WL_SURFACE_SET_INPUT_REGION: uint32_t = 5;
+static WL_SURFACE_COMMIT: uint32_t = 6;
+static WL_SURFACE_SET_BUFFER_TRANSFORM: uint32_t = 7;
+static WL_SURFACE_SET_BUFFER_SCALE: uint32_t = 8;
 
 #[repr(C)] pub struct wl_compositor;
 #[repr(C)] pub struct wl_region;
@@ -111,4 +123,16 @@ pub unsafe fn wl_registry_bind(
         ptr::null_mut::<c_void>()
     );
     id as *mut c_void
+}
+
+#[inline]
+pub unsafe fn wl_surface_destroy(surface: *mut wl_surface) {
+    raw::wl_proxy_marshal(surface as *mut raw::wl_proxy, WL_SURFACE_DESTROY);
+    raw::wl_proxy_destroy(surface as *mut raw::wl_proxy);
+}
+
+#[inline]
+pub unsafe fn wl_region_destroy(region: *mut wl_region) {
+    raw::wl_proxy_marshal(region as *mut raw::wl_proxy, WL_REGION_DESTROY);
+    raw::wl_proxy_destroy(region as *mut raw::wl_proxy);
 }

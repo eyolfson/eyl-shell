@@ -11,17 +11,26 @@ pub use self::libc::{
 };
 pub use self::protocol::{
     wl_compositor,
-    wl_compositor_destroy
+    wl_compositor_create_surface,
+    wl_compositor_destroy,
 };
 pub use self::protocol::{
     wl_registry,
     wl_registry_add_listener,
     wl_registry_bind,
     wl_registry_destroy,
-    wl_registry_listener
+    wl_registry_listener,
 };
 pub use self::protocol::{
-    wl_display_get_registry
+    wl_display_get_registry,
+};
+pub use self::protocol::{
+    wl_surface,
+    wl_surface_destroy,
+};
+pub use self::protocol::{
+    wl_region,
+    wl_region_destroy,
 };
 
 pub use self::util::{wl_interface, wl_message};
