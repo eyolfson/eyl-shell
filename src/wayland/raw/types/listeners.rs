@@ -1,8 +1,39 @@
-#![allow(non_camel_case_types)]
-
-use libc::{c_char, c_void, uint32_t};
+use libc::{c_char, c_void, int32_t, uint32_t};
 
 use raw::types::objects;
+
+#[repr(C)]
+pub struct wl_output_listener {
+    pub geometry: extern fn(
+        data: *mut c_void,
+        wl_output: *mut objects::wl_output,
+        x: int32_t,
+        y: int32_t,
+        physical_width: int32_t,
+        physical_height: int32_t,
+        subpixel: int32_t,
+        make: *const c_char,
+        model: *const c_char,
+        transform: int32_t
+    ),
+    pub mode: extern fn(
+        data: *mut c_void,
+        wl_output: *mut objects::wl_output,
+        flags: uint32_t,
+        width: int32_t,
+        height: int32_t,
+        refresh: int32_t
+    ),
+    pub done: extern fn(
+        data: *mut c_void,
+        wl_output: *mut objects::wl_output
+    ),
+    pub scale: extern fn(
+        data: *mut c_void,
+        wl_output: *mut objects::wl_output,
+        factor: int32_t
+    )
+}
 
 #[repr(C)]
 pub struct wl_registry_listener {

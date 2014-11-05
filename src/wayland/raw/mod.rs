@@ -1,5 +1,3 @@
-#![allow(non_camel_case_types)]
-
 pub use raw::protocol::wl_compositor::*;
 pub use raw::protocol::wl_display::*;
 pub use raw::protocol::wl_region::*;
@@ -79,6 +77,8 @@ extern {
         interface: *const wl_interface,
         ...
     ) -> *mut wl_proxy;
+    pub fn wl_proxy_set_user_data(proxy: *mut wl_proxy, user_data: *mut c_void);
+    pub fn wl_proxy_get_user_data(proxy: *mut wl_proxy) -> *mut c_void;
     // wl_list
     pub fn wl_list_init(list: *mut wl_list);
     pub fn wl_list_insert(list: *mut wl_list, elm: *mut wl_list);
