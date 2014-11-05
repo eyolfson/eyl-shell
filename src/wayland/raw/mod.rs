@@ -4,6 +4,7 @@ pub use raw::protocol::wl_compositor::*;
 pub use raw::protocol::wl_display::*;
 pub use raw::protocol::wl_region::*;
 pub use raw::protocol::wl_registry::*;
+pub use raw::protocol::wl_seat::*;
 pub use raw::protocol::wl_shell::*;
 pub use raw::protocol::wl_shm::*;
 pub use raw::protocol::wl_surface::*;
@@ -31,6 +32,7 @@ extern {
     pub static wl_pointer_interface: wl_interface;
     pub static wl_region_interface: wl_interface;
     pub static wl_registry_interface: wl_interface;
+    pub static wl_seat_interface: wl_interface;
     pub static wl_shell_interface: wl_interface;
     pub static wl_shell_surface_interface: wl_interface;
     pub static wl_shm_interface: wl_interface;

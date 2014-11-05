@@ -17,6 +17,9 @@ pub struct wl_region;
 pub struct wl_registry;
 
 #[repr(C)]
+pub struct wl_seat;
+
+#[repr(C)]
 pub struct wl_shell;
 
 #[repr(C)]

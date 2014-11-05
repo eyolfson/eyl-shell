@@ -6,12 +6,14 @@ use raw;
 
 use Compositor;
 use Display;
+use Seat;
 use Shell;
 use Shm;
 
 pub struct Registry {
     ptr: *mut raw::wl_registry,
     compositor: Option<Compositor>,
+    seat: Option<Seat>,
     shell: Option<Shell>,
     shm: Option<Shm>,
 }
@@ -37,6 +39,18 @@ extern fn global(
                 ptr as *mut raw::wl_compositor
             );
             r.compositor = Some(compositor);
+        }
+        else if strcmp(interface, raw::wl_seat_interface.name) == 0 {
+            let ptr = raw::wl_registry_bind(
+                registry,
+                name,
+                & raw::wl_seat_interface,
+                version
+            );
+            let seat = Seat::from_ptr(
+                ptr as *mut raw::wl_seat
+            );
+            r.seat = Some(seat);
         }
         else if strcmp(interface, raw::wl_shell_interface.name) == 0 {
             let ptr = raw::wl_registry_bind(
@@ -87,6 +101,7 @@ impl Registry {
             let mut r = Registry {
                 ptr: ptr,
                 compositor: None,
+                seat: None,
                 shell: None,
                 shm: None,
             };
@@ -103,6 +118,12 @@ impl Registry {
         match self.compositor {
             Some(ref mut c) => c,
             None => panic!("compositor not set"),
+        }
+    }
+    pub fn get_seat(&mut self) -> &mut Seat {
+        match self.seat {
+            Some(ref mut s) => s,
+            None => panic!("seat not set"),
         }
     }
     pub fn get_shell(&mut self) -> &mut Shell {

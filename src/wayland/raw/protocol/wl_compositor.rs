@@ -1,5 +1,3 @@
-#![allow(non_camel_case_types)]
-
 use std::ptr;
 use libc::{c_void, uint32_t};
 

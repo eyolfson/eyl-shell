@@ -21,6 +21,20 @@ pub struct wl_registry_listener {
 }
 
 #[repr(C)]
+pub struct wl_seat_listener {
+    pub capabilities: extern fn(
+        data: *mut c_void,
+        wl_seat: *mut objects::wl_seat,
+        capabilities: uint32_t
+    ),
+    pub name: extern fn(
+        data: *mut c_void,
+        wl_seat: *mut objects::wl_seat,
+        name: *const c_char
+    )
+}
+
+#[repr(C)]
 pub struct wl_shm_listener {
     pub format: extern fn(
         data: *mut c_void,
