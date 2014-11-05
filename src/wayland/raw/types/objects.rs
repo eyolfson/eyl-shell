@@ -1,4 +1,7 @@
 #[repr(C)]
+pub struct wl_buffer;
+
+#[repr(C)]
 pub struct wl_compositor;
 
 #[repr(C)]
