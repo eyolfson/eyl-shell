@@ -5,6 +5,7 @@ pub use raw::protocol::wl_display::*;
 pub use raw::protocol::wl_region::*;
 pub use raw::protocol::wl_registry::*;
 pub use raw::protocol::wl_shell::*;
+pub use raw::protocol::wl_shm::*;
 pub use raw::protocol::wl_surface::*;
 pub use raw::types::listeners::*;
 pub use raw::types::objects::*;

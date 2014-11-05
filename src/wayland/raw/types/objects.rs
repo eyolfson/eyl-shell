@@ -20,4 +20,7 @@ pub struct wl_registry;
 pub struct wl_shell;
 
 #[repr(C)]
+pub struct wl_shm;
+
+#[repr(C)]
 pub struct wl_surface;

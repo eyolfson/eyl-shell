@@ -7,11 +7,13 @@ use raw;
 use Compositor;
 use Display;
 use Shell;
+use Shm;
 
 pub struct Registry {
     ptr: *mut raw::wl_registry,
     compositor: Option<Compositor>,
     shell: Option<Shell>,
+    shm: Option<Shm>,
 }
 
 #[allow(unused_variables)]
@@ -48,6 +50,18 @@ extern fn global(
             );
             r.shell = Some(shell);
         }
+        else if strcmp(interface, raw::wl_shm_interface.name) == 0 {
+            let ptr = raw::wl_registry_bind(
+                registry,
+                name,
+                & raw::wl_shm_interface,
+                version
+            );
+            let shm = Shm::from_ptr(
+                ptr as *mut raw::wl_shm
+            );
+            r.shm = Some(shm);
+        }
     }
 }
 
@@ -74,6 +88,7 @@ impl Registry {
                 ptr: ptr,
                 compositor: None,
                 shell: None,
+                shm: None,
             };
             raw::wl_registry_add_listener(
                 ptr,
@@ -92,6 +107,12 @@ impl Registry {
     }
     pub fn get_shell(&mut self) -> &mut Shell {
         match self.shell {
+            Some(ref mut s) => s,
+            None => panic!("shell not set"),
+        }
+    }
+    pub fn get_shm(&mut self) -> &mut Shm {
+        match self.shm {
             Some(ref mut s) => s,
             None => panic!("shell not set"),
         }

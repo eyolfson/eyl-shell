@@ -1,5 +1,3 @@
-#![allow(non_camel_case_types)]
-
 use std::ptr;
 
 use libc::{c_int, c_void, uint32_t};
@@ -10,11 +8,6 @@ use raw::types::listeners;
 use raw::types::utils;
 
 pub static WL_REGISTRY_BIND: uint32_t = 0;
-
-#[inline]
-pub unsafe fn wl_registry_destroy(wl_registry: *mut objects::wl_registry) {
-    raw::wl_proxy_destroy(wl_registry as *mut objects::wl_proxy);
-}
 
 #[inline]
 pub unsafe fn wl_registry_add_listener(
@@ -46,4 +39,9 @@ pub unsafe fn wl_registry_bind(
         ptr::null_mut::<c_void>()
     );
     id as *mut c_void
+}
+
+#[inline]
+pub unsafe fn wl_registry_destroy(wl_registry: *mut objects::wl_registry) {
+    raw::wl_proxy_destroy(wl_registry as *mut objects::wl_proxy);
 }

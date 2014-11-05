@@ -8,6 +8,7 @@ pub use list::List;
 pub use region::Region;
 pub use registry::Registry;
 pub use shell::Shell;
+pub use shm::Shm;
 pub use surface::Surface;
 
 mod compositor;
@@ -16,6 +17,7 @@ mod list;
 mod region;
 mod registry;
 mod shell;
+mod shm;
 mod surface;
 
 pub mod raw;

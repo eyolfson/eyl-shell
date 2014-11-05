@@ -19,3 +19,12 @@ pub struct wl_registry_listener {
         name: uint32_t
     )
 }
+
+#[repr(C)]
+pub struct wl_shm_listener {
+    pub format: extern fn(
+        data: *mut c_void,
+        wl_shm: *mut objects::wl_shm,
+        format: uint32_t
+    )
+}
