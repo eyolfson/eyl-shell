@@ -1,3 +1,5 @@
+use std::ptr;
+
 use libc::{c_int, c_void, uint32_t};
 
 use raw;
@@ -24,4 +26,43 @@ pub unsafe fn wl_seat_add_listener(
 #[inline]
 pub unsafe fn wl_seat_destroy(wl_seat: *mut objects::wl_seat) {
     raw::wl_proxy_destroy(wl_seat as *mut objects::wl_proxy);
+}
+
+#[inline]
+pub unsafe fn wl_seat_get_pointer(
+    wl_seat: *mut objects::wl_seat
+) -> *mut objects::wl_pointer {
+    let id = raw::wl_proxy_marshal_constructor(
+        wl_seat as *mut objects::wl_proxy,
+        WL_SEAT_GET_POINTER,
+        &raw::wl_pointer_interface,
+        ptr::null_mut::<c_void>()
+    );
+    id as *mut objects::wl_pointer
+}
+
+#[inline]
+pub unsafe fn wl_seat_get_keyboard(
+    wl_seat: *mut objects::wl_seat
+) -> *mut objects::wl_keyboard {
+    let id = raw::wl_proxy_marshal_constructor(
+        wl_seat as *mut objects::wl_proxy,
+        WL_SEAT_GET_KEYBOARD,
+        &raw::wl_keyboard_interface,
+        ptr::null_mut::<c_void>()
+    );
+    id as *mut objects::wl_keyboard
+}
+
+#[inline]
+pub unsafe fn wl_seat_get_touch(
+    wl_seat: *mut objects::wl_seat
+) -> *mut objects::wl_touch {
+    let id = raw::wl_proxy_marshal_constructor(
+        wl_seat as *mut objects::wl_proxy,
+        WL_SEAT_GET_TOUCH,
+        &raw::wl_touch_interface,
+        ptr::null_mut::<c_void>()
+    );
+    id as *mut objects::wl_touch
 }

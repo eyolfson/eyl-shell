@@ -8,6 +8,12 @@ pub struct wl_display;
 pub struct wl_event_queue;
 
 #[repr(C)]
+pub struct wl_keyboard;
+
+#[repr(C)]
+pub struct wl_pointer;
+
+#[repr(C)]
 pub struct wl_proxy;
 
 #[repr(C)]
@@ -26,4 +32,10 @@ pub struct wl_shell;
 pub struct wl_shm;
 
 #[repr(C)]
+pub struct wl_shm_pool;
+
+#[repr(C)]
 pub struct wl_surface;
+
+#[repr(C)]
+pub struct wl_touch;
