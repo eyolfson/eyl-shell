@@ -1,13 +1,17 @@
-use libc::{c_char, c_void, strcmp, uint32_t};
 use std::mem;
 
-use Display;
-use Compositor;
+use libc::{c_char, c_void, strcmp, uint32_t};
+
 use raw;
+
+use Compositor;
+use Display;
+use Shell;
 
 pub struct Registry {
     ptr: *mut raw::wl_registry,
     compositor: Option<Compositor>,
+    shell: Option<Shell>,
 }
 
 #[allow(unused_variables)]
@@ -32,6 +36,18 @@ extern fn global(
             );
             r.compositor = Some(compositor);
         }
+        else if strcmp(interface, raw::wl_shell_interface.name) == 0 {
+            let ptr = raw::wl_registry_bind(
+                registry,
+                name,
+                & raw::wl_shell_interface,
+                version
+            );
+            let shell = Shell::from_ptr(
+                ptr as *mut raw::wl_shell
+            );
+            r.shell = Some(shell);
+        }
     }
 }
 
@@ -41,7 +57,7 @@ extern fn global_remove(
     registry: *mut raw::wl_registry,
     name: uint32_t
 ) {
-
+    panic!("unhandled registry global_remove");
 }
 
 static REGISTRY_LISTENER: raw::wl_registry_listener =
@@ -54,7 +70,11 @@ impl Registry {
     pub fn new(display: &mut Display) -> Registry {
         unsafe {
             let ptr = raw::wl_display_get_registry(display.to_ptr());
-            let mut r = Registry { ptr: ptr, compositor: None };
+            let mut r = Registry {
+                ptr: ptr,
+                compositor: None,
+                shell: None,
+            };
             raw::wl_registry_add_listener(
                 ptr,
                 &REGISTRY_LISTENER,
@@ -68,6 +88,12 @@ impl Registry {
         match self.compositor {
             Some(ref mut c) => c,
             None => panic!("compositor not set"),
+        }
+    }
+    pub fn get_shell(&mut self) -> &mut Shell {
+        match self.shell {
+            Some(ref mut s) => s,
+            None => panic!("shell not set"),
         }
     }
 }
