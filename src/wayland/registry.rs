@@ -1,3 +1,4 @@
+use std::c_str;
 use std::mem;
 
 use libc::{c_char, c_void, strcmp, uint32_t};
@@ -76,6 +77,10 @@ extern fn global(
             );
             r.shm = Some(shm);
         }
+        let interface_c_str = c_str::CString::new(interface, false);
+        let interface_str = interface_c_str.as_str().unwrap();
+        println!("wl_registry.global name={} interface={} version={}",
+                 name, interface_str, version);
     }
 }
 
@@ -85,7 +90,8 @@ extern fn global_remove(
     registry: *mut raw::wl_registry,
     name: uint32_t
 ) {
-    panic!("unhandled registry global_remove");
+    println!("wl_registry.global_remove name = {}", name);
+    unimplemented!();
 }
 
 static REGISTRY_LISTENER: raw::wl_registry_listener =
