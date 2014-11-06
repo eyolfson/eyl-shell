@@ -8,6 +8,7 @@ pub use raw::protocol::wl_shell::*;
 pub use raw::protocol::wl_shm::*;
 pub use raw::protocol::wl_shm_pool::*;
 pub use raw::protocol::wl_surface::*;
+pub use raw::types::enums::*;
 pub use raw::types::listeners::*;
 pub use raw::types::objects::*;
 pub use raw::types::utils::*;
