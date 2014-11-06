@@ -120,25 +120,25 @@ impl Registry {
             r
         }
     }
-    pub fn get_compositor(&mut self) -> &mut Compositor {
+    pub fn compositor(&mut self) -> &mut Compositor {
         match self.compositor {
             Some(ref mut c) => c,
             None => panic!("compositor not set"),
         }
     }
-    pub fn get_seat(&mut self) -> &mut Seat {
+    pub fn seat(&mut self) -> &mut Seat {
         match self.seat {
             Some(ref mut s) => s,
             None => panic!("seat not set"),
         }
     }
-    pub fn get_shell(&mut self) -> &mut Shell {
+    pub fn shell(&mut self) -> &mut Shell {
         match self.shell {
             Some(ref mut s) => s,
             None => panic!("shell not set"),
         }
     }
-    pub fn get_shm(&mut self) -> &mut Shm {
+    pub fn shm(&mut self) -> &mut Shm {
         match self.shm {
             Some(ref mut s) => s,
             None => panic!("shell not set"),
