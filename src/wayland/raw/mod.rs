@@ -5,6 +5,7 @@ pub use raw::protocol::wl_region::*;
 pub use raw::protocol::wl_registry::*;
 pub use raw::protocol::wl_seat::*;
 pub use raw::protocol::wl_shell::*;
+pub use raw::protocol::wl_shell_surface::*;
 pub use raw::protocol::wl_shm::*;
 pub use raw::protocol::wl_shm_pool::*;
 pub use raw::protocol::wl_surface::*;

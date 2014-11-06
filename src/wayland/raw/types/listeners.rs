@@ -74,6 +74,26 @@ pub struct wl_seat_listener {
 }
 
 #[repr(C)]
+pub struct wl_shell_surface_listener {
+    pub ping: extern fn(
+        data: *mut c_void,
+        wl_shell_surface: *mut objects::wl_shell_surface,
+        serial: uint32_t
+    ),
+    pub configure: extern fn(
+        data: *mut c_void,
+        wl_shell_surface: *mut objects::wl_shell_surface,
+        edges: uint32_t,
+        width: int32_t,
+        height: int32_t
+    ),
+    pub popup_done: extern fn(
+        data: *mut c_void,
+        wl_shell_surface: *mut objects::wl_shell_surface,
+    )   
+}
+
+#[repr(C)]
 pub struct wl_shm_listener {
     pub format: extern fn(
         data: *mut c_void,

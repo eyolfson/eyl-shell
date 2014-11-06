@@ -6,6 +6,14 @@ pub enum wl_display_error {
 }
 
 #[repr(C)]
+pub enum wl_shell_surface_fullscreen_method {
+    WL_SHELL_SURFACE_FULLSCREEN_METHOD_DEFAULT = 0,
+    WL_SHELL_SURFACE_FULLSCREEN_METHOD_SCALE = 1,
+    WL_SHELL_SURFACE_FULLSCREEN_METHOD_DRIVER = 2,
+    WL_SHELL_SURFACE_FULLSCREEN_METHOD_FILL = 3
+}
+
+#[repr(C)]
 pub enum wl_shell_surface_resize {
     WL_SHELL_SURFACE_RESIZE_NONE = 0,
     WL_SHELL_SURFACE_RESIZE_TOP = 1,
@@ -17,6 +25,11 @@ pub enum wl_shell_surface_resize {
     WL_SHELL_SURFACE_RESIZE_TOP_RIGHT = 9,
     WL_SHELL_SURFACE_RESIZE_BOTTOM_RIGHT = 10
 }
+
+// #[repr(C)]
+// pub enum wl_shell_surface_transient {
+//     WL_SHELL_SURFACE_TRANSIENT_INACTIVE = 1
+// }
 
 #[repr(C)]
 pub enum wl_shm_error {
