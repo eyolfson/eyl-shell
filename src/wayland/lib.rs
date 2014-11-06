@@ -2,6 +2,7 @@
 
 extern crate libc;
 
+pub use buffer::Buffer;
 pub use compositor::Compositor;
 pub use display::Display;
 pub use list::List;
@@ -13,6 +14,7 @@ pub use shm::Shm;
 pub use shm_pool::ShmPool;
 pub use surface::Surface;
 
+mod buffer;
 mod compositor;
 mod display;
 mod list;

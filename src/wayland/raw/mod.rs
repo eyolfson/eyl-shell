@@ -1,3 +1,4 @@
+pub use raw::protocol::wl_buffer::*;
 pub use raw::protocol::wl_compositor::*;
 pub use raw::protocol::wl_display::*;
 pub use raw::protocol::wl_region::*;

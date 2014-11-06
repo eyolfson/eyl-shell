@@ -3,6 +3,14 @@ use libc::{c_char, c_void, int32_t, uint32_t};
 use raw::types::objects;
 
 #[repr(C)]
+pub struct wl_buffer_listener {
+    pub release: extern fn(
+        data: *mut c_void,
+        wl_buffer: *mut objects::wl_buffer
+    )
+}
+
+#[repr(C)]
 pub struct wl_output_listener {
     pub geometry: extern fn(
         data: *mut c_void,
