@@ -67,9 +67,9 @@ fn main() {
         0, WIDTH, HEIGHT, WIDTH * 4, wayland::raw::WL_SHM_FORMAT_ARGB8888
     );
     surface.attach(&mut buffer, 0, 0);
-    surface.commit();
     let mut shell_surface = registry.shell().get_shell_surface(&mut surface);
     shell_surface.set_toplevel();
+    surface.commit();
     loop {
         display.dispatch();
     }
