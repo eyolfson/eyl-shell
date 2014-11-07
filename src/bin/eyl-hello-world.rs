@@ -4,8 +4,11 @@ extern crate libc;
 
 use std::ptr;
 
-static WIDTH: i32 = 300;
-static HEIGHT: i32 = 200;
+const WIDTH: i32 = 300;
+const HEIGHT: i32 = 200;
+const STRIDE: i32 = WIDTH * 4;
+const PIXELS: i32 = WIDTH * HEIGHT;
+const SIZE: i32 = PIXELS * 4;
 
 #[link(name = "rt")]
 extern {} // So we can link to shm_open and shm_unlink
@@ -24,12 +27,11 @@ impl ShmFd {
                 libc::S_IRUSR | libc::S_IWUSR
             );
             assert!(fd >= 0);
-            let size = WIDTH * HEIGHT * 4;
-            assert!(libc::ftruncate(fd, size as i64) != -1);
-            let ptr = libc::mmap(ptr::null_mut(), size as u64,
+            assert!(libc::ftruncate(fd, SIZE as i64) != -1);
+            let ptr = libc::mmap(ptr::null_mut(), SIZE as u64,
                                  libc::PROT_WRITE | libc::PROT_READ, 1, fd, 0);
             assert!(ptr != libc::MAP_FAILED);
-            for i in range(0i32, WIDTH * HEIGHT) {
+            for i in range(0, PIXELS) {
                 let p: *mut u32 = (ptr as *mut u32).offset(i as int);
                 if i % 2 == 0 {
                     std::ptr::write(&mut *p, 0x00FF00FF);
@@ -49,7 +51,7 @@ impl ShmFd {
 impl Drop for ShmFd {
     fn drop(&mut self) {
         unsafe {
-            libc::munmap(self.ptr, WIDTH as u64 * HEIGHT as u64 * 4);
+            libc::munmap(self.ptr, SIZE as u64);
             libc::funcs::posix88::mman::shm_unlink(
                 "/eyl-hello-world".to_c_str().as_ptr()
             );
@@ -61,10 +63,10 @@ fn main() {
     let mut display = wayland::Display::new();
     let mut registry = wayland::Registry::new(&mut display);
     let shm_fd = ShmFd::new();
-    let mut pool = registry.shm().create_pool(shm_fd.fd(), WIDTH * HEIGHT * 4);
+    let mut pool = registry.shm().create_pool(shm_fd.fd(), SIZE);
     let mut surface = registry.compositor().create_surface();
     let mut buffer = pool.create_buffer(
-        0, WIDTH, HEIGHT, WIDTH * 4, wayland::raw::WL_SHM_FORMAT_ARGB8888
+        0, WIDTH, HEIGHT, STRIDE, wayland::raw::WL_SHM_FORMAT_ARGB8888
     );
     surface.attach(&mut buffer, 0, 0);
     let mut shell_surface = registry.shell().get_shell_surface(&mut surface);
