@@ -1,5 +1,7 @@
 use raw;
 
+use Buffer;
+
 pub struct Surface {
     ptr: *mut raw::wl_surface
 }
@@ -10,6 +12,11 @@ impl Surface {
     }
     pub unsafe fn to_ptr(&mut self) -> *mut raw::wl_surface {
         self.ptr
+    }
+    pub fn attach(&mut self, buffer: &mut Buffer, x: i32, y: i32) {
+        unsafe {
+            raw::wl_surface_attach(self.ptr, buffer.to_ptr(), x, y);
+        }
     }
 }
 

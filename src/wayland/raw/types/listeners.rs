@@ -101,3 +101,17 @@ pub struct wl_shm_listener {
         format: uint32_t
     )
 }
+
+#[repr(C)]
+pub struct wl_surface_listener {
+    pub enter: extern fn(
+        data: *mut c_void,
+        wl_surface: *mut objects::wl_surface,
+        output: *mut objects::wl_output
+    ),
+    pub leave: extern fn(
+        data: *mut c_void,
+        wl_surface: *mut objects::wl_surface,
+        output: *mut objects::wl_output
+    )
+}

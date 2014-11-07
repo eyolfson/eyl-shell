@@ -8,6 +8,9 @@ impl Buffer {
     pub unsafe fn from_ptr(ptr: *mut raw::wl_buffer) -> Buffer {
         Buffer { ptr: ptr }
     }
+    pub unsafe fn to_ptr(&mut self) -> *mut raw::wl_buffer {
+        self.ptr
+    }
 }
 
 impl Drop for Buffer {
