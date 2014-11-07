@@ -68,3 +68,13 @@ pub unsafe fn wl_surface_attach(
         y
     );
 }
+
+#[inline]
+pub unsafe fn wl_surface_commit(
+    wl_surface: *mut objects::wl_surface,
+) {
+    raw::wl_proxy_marshal(
+        wl_surface as *mut objects::wl_proxy,
+        WL_SURFACE_COMMIT,
+    );
+}

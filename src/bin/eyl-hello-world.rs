@@ -49,7 +49,7 @@ impl ShmFd {
 impl Drop for ShmFd {
     fn drop(&mut self) {
         unsafe {
-            libc::munmap(self.ptr, WIDTH as u64 * HEIGHT as u64);
+            libc::munmap(self.ptr, WIDTH as u64 * HEIGHT as u64 * 4);
             libc::funcs::posix88::mman::shm_unlink(
                 "/eyl-hello-world".to_c_str().as_ptr()
             );
@@ -61,12 +61,13 @@ fn main() {
     let mut display = wayland::Display::new();
     let mut registry = wayland::Registry::new(&mut display);
     let shm_fd = ShmFd::new();
-    let mut pool = registry.shm().create_pool(shm_fd.fd(), WIDTH * HEIGHT);
+    let mut pool = registry.shm().create_pool(shm_fd.fd(), WIDTH * HEIGHT * 4);
     let mut surface = registry.compositor().create_surface();
     let mut buffer = pool.create_buffer(
-        0, WIDTH, HEIGHT, WIDTH, wayland::raw::WL_SHM_FORMAT_ARGB8888
+        0, WIDTH, HEIGHT, WIDTH * 4, wayland::raw::WL_SHM_FORMAT_ARGB8888
     );
     surface.attach(&mut buffer, 0, 0);
+    surface.commit();
     let mut shell_surface = registry.shell().get_shell_surface(&mut surface);
     shell_surface.set_toplevel();
     loop {

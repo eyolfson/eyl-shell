@@ -18,6 +18,11 @@ impl Surface {
             raw::wl_surface_attach(self.ptr, buffer.to_ptr(), x, y);
         }
     }
+    pub fn commit(&mut self) {
+        unsafe {
+            raw::wl_surface_commit(self.ptr);
+        }
+    }
 }
 
 impl Drop for Surface {
