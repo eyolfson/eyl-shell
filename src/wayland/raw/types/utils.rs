@@ -20,6 +20,14 @@ pub struct wl_array {
 }
 
 #[repr(C)]
+pub type wl_dispatcher_func_t = extern fn(
+    _: *const c_void,
+    _: *mut c_void,
+    _: uint32_t,
+    _: *const wl_message,
+    _: *mut wl_argument);
+
+#[repr(C)]
 pub type wl_fixed_t = uint32_t;
 
 #[repr(C)]
@@ -37,6 +45,9 @@ pub struct wl_list {
     pub prev: *mut wl_list,
     pub next: *mut wl_list,
 }
+
+#[repr(C)]
+pub type wl_log_func_t = extern fn(_: *const c_char, ...);
 
 #[repr(C)]
 pub struct wl_message {
