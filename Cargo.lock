@@ -1,0 +1,12 @@
+[root]
+name = "eyl-shell"
+version = "0.0.0"
+dependencies = [
+ "wayland 0.0.1 (git+https://github.com/eyolfson/rust-wayland)",
+]
+
+[[package]]
+name = "wayland"
+version = "0.0.1"
+source = "git+https://github.com/eyolfson/rust-wayland#8a10ad9288fc88b0ac468c8498a4590db9f9b9de"
+

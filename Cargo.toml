@@ -4,6 +4,6 @@ name = "eyl-shell"
 version = "0.0.0"
 authors = ["Jon Eyolfson <jon@eyl.io>"]
 
-[lib]
-name = "wayland"
-path = "src/wayland/lib.rs"
+[dependencies.wayland]
+
+git = "https://github.com/eyolfson/rust-wayland"
