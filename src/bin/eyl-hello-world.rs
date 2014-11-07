@@ -33,12 +33,7 @@ impl ShmFd {
             assert!(ptr != libc::MAP_FAILED);
             for i in range(0, PIXELS) {
                 let p: *mut u32 = (ptr as *mut u32).offset(i as int);
-                if i % 2 == 0 {
-                    std::ptr::write(&mut *p, 0x00FF00FF);
-                }
-                else {
-                    std::ptr::write(&mut *p, 0x00000000);
-                }
+                std::ptr::write(&mut *p, 0x80000000);
             }
             ShmFd { fd: fd, ptr: ptr }
         }
