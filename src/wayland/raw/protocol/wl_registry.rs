@@ -9,7 +9,7 @@ use raw::types::utils;
 
 pub const WL_REGISTRY_BIND: uint32_t = 0;
 
-#[inline]
+#[inline(always)]
 pub unsafe fn wl_registry_add_listener(
     wl_registry: *mut objects::wl_registry,
     listener: *const listeners::wl_registry_listener,
@@ -22,7 +22,30 @@ pub unsafe fn wl_registry_add_listener(
     )
 }
 
-#[inline]
+#[inline(always)]
+pub unsafe fn wl_registry_set_user_data(
+    wl_registry: *mut objects::wl_registry,
+    user_data: *mut c_void
+) {
+    raw::wl_proxy_set_user_data(
+        wl_registry as *mut objects::wl_proxy,
+        user_data
+    )
+}
+
+#[inline(always)]
+pub unsafe fn wl_registry_get_user_data(
+    wl_registry: *mut objects::wl_registry
+) -> *mut c_void {
+    raw::wl_proxy_get_user_data(wl_registry as *mut objects::wl_proxy)
+}
+
+#[inline(always)]
+pub unsafe fn wl_registry_destroy(wl_registry: *mut objects::wl_registry) {
+    raw::wl_proxy_destroy(wl_registry as *mut objects::wl_proxy)
+}
+
+#[inline(always)]
 pub unsafe fn wl_registry_bind(
     wl_registry: *mut objects::wl_registry,
     name: uint32_t,
@@ -39,9 +62,4 @@ pub unsafe fn wl_registry_bind(
         ptr::null_mut::<c_void>()
     );
     id as *mut c_void
-}
-
-#[inline]
-pub unsafe fn wl_registry_destroy(wl_registry: *mut objects::wl_registry) {
-    raw::wl_proxy_destroy(wl_registry as *mut objects::wl_proxy);
 }

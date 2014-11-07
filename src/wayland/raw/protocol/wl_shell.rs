@@ -5,29 +5,32 @@ use libc::{c_void, uint32_t};
 use raw;
 use raw::types::objects;
 
-pub static WL_SHELL_GET_SHELL_SURFACE: uint32_t = 0;
+pub const WL_SHELL_GET_SHELL_SURFACE: uint32_t = 0;
 
-#[inline]
+#[inline(always)]
 pub unsafe fn wl_shell_set_user_data(
     wl_shell: *mut objects::wl_shell,
     user_data: *mut c_void
 ) {
-    raw::wl_proxy_set_user_data(wl_shell as *mut objects::wl_proxy, user_data);
+    raw::wl_proxy_set_user_data(
+        wl_shell as *mut objects::wl_proxy,
+        user_data
+    )
 }
 
-#[inline]
+#[inline(always)]
 pub unsafe fn wl_shell_get_user_data(
     wl_shell: *mut objects::wl_shell
 ) -> *mut c_void {
     raw::wl_proxy_get_user_data(wl_shell as *mut objects::wl_proxy)
 }
 
-#[inline]
+#[inline(always)]
 pub unsafe fn wl_shell_destroy(wl_shell: *mut objects::wl_shell) {
-    raw::wl_proxy_destroy(wl_shell as *mut objects::wl_proxy);
+    raw::wl_proxy_destroy(wl_shell as *mut objects::wl_proxy)
 }
 
-#[inline]
+#[inline(always)]
 pub unsafe fn wl_shell_get_shell_surface(
     wl_shell: *mut objects::wl_shell,
     surface: *mut objects::wl_surface

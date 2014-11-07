@@ -7,33 +7,6 @@ pub const WL_DISPLAY_ERROR_INVALID_METHOD: wl_display_error = 1;
 pub const WL_DISPLAY_ERROR_NO_MEMORY: wl_display_error = 2;
 
 #[repr(C)]
-pub type wl_shell_surface_fullscreen_method = uint32_t;
-pub const WL_SHELL_SURFACE_FULLSCREEN_METHOD_DEFAULT
-    : wl_shell_surface_fullscreen_method = 0;
-pub const WL_SHELL_SURFACE_FULLSCREEN_METHOD_SCALE
-    : wl_shell_surface_fullscreen_method = 1;
-pub const WL_SHELL_SURFACE_FULLSCREEN_METHOD_DRIVER
-    : wl_shell_surface_fullscreen_method = 2;
-pub const WL_SHELL_SURFACE_FULLSCREEN_METHOD_FILL
-    : wl_shell_surface_fullscreen_method = 3;
-
-#[repr(C)]
-pub type wl_shell_surface_resize = uint32_t;
-pub const WL_SHELL_SURFACE_RESIZE_NONE: wl_shell_surface_resize = 0;
-pub const WL_SHELL_SURFACE_RESIZE_TOP: wl_shell_surface_resize = 1;
-pub const WL_SHELL_SURFACE_RESIZE_BOTTOM: wl_shell_surface_resize = 2;
-pub const WL_SHELL_SURFACE_RESIZE_LEFT: wl_shell_surface_resize = 4;
-pub const WL_SHELL_SURFACE_RESIZE_TOP_LEFT: wl_shell_surface_resize = 5;
-pub const WL_SHELL_SURFACE_RESIZE_BOTTOM_LEFT: wl_shell_surface_resize = 6;
-pub const WL_SHELL_SURFACE_RESIZE_RIGHT: wl_shell_surface_resize = 8;
-pub const WL_SHELL_SURFACE_RESIZE_TOP_RIGHT: wl_shell_surface_resize = 9;
-pub const WL_SHELL_SURFACE_RESIZE_BOTTOM_RIGHT: wl_shell_surface_resize = 10;
-
-#[repr(C)]
-pub type wl_shell_surface_transient = uint32_t;
-pub const WL_SHELL_SURFACE_TRANSIENT_INACTIVE: wl_shell_surface_transient = 1;
-
-#[repr(C)]
 pub type wl_shm_error = uint32_t;
 pub const WL_SHM_ERROR_INVALID_FORMAT: wl_shm_error = 0;
 pub const WL_SHM_ERROR_INVALID_STRIDE: wl_shm_error = 1;
@@ -101,6 +74,100 @@ pub const WL_SHM_FORMAT_YUV444: wl_shm_format = 0x34325559;
 pub const WL_SHM_FORMAT_YVU444: wl_shm_format = 0x34325659;
 
 #[repr(C)]
+pub type wl_data_device_error = uint32_t;
+pub const WL_DATA_DEVICE_ERROR_ROLE: wl_data_device_error = 0;
+
+#[repr(C)]
+pub type wl_shell_error = uint32_t;
+pub const WL_SHELL_ERROR_ROLE: wl_shell_error = 0;
+
+#[repr(C)]
+pub type wl_shell_surface_resize = uint32_t;
+pub const WL_SHELL_SURFACE_RESIZE_NONE: wl_shell_surface_resize = 0;
+pub const WL_SHELL_SURFACE_RESIZE_TOP: wl_shell_surface_resize = 1;
+pub const WL_SHELL_SURFACE_RESIZE_BOTTOM: wl_shell_surface_resize = 2;
+pub const WL_SHELL_SURFACE_RESIZE_LEFT: wl_shell_surface_resize = 4;
+pub const WL_SHELL_SURFACE_RESIZE_TOP_LEFT: wl_shell_surface_resize = 5;
+pub const WL_SHELL_SURFACE_RESIZE_BOTTOM_LEFT: wl_shell_surface_resize = 6;
+pub const WL_SHELL_SURFACE_RESIZE_RIGHT: wl_shell_surface_resize = 8;
+pub const WL_SHELL_SURFACE_RESIZE_TOP_RIGHT: wl_shell_surface_resize = 9;
+pub const WL_SHELL_SURFACE_RESIZE_BOTTOM_RIGHT: wl_shell_surface_resize = 10;
+
+#[repr(C)]
+pub type wl_shell_surface_transient = uint32_t;
+pub const WL_SHELL_SURFACE_TRANSIENT_INACTIVE: wl_shell_surface_transient = 0x1;
+
+#[repr(C)]
+pub type wl_shell_surface_fullscreen_method = uint32_t;
+pub const WL_SHELL_SURFACE_FULLSCREEN_METHOD_DEFAULT: wl_shell_surface_fullscreen_method = 0;
+pub const WL_SHELL_SURFACE_FULLSCREEN_METHOD_SCALE: wl_shell_surface_fullscreen_method = 1;
+pub const WL_SHELL_SURFACE_FULLSCREEN_METHOD_DRIVER: wl_shell_surface_fullscreen_method = 2;
+pub const WL_SHELL_SURFACE_FULLSCREEN_METHOD_FILL: wl_shell_surface_fullscreen_method = 3;
+
+#[repr(C)]
 pub type wl_surface_error = uint32_t;
 pub const WL_SURFACE_ERROR_INVALID_SCALE: wl_surface_error = 0;
 pub const WL_SURFACE_ERROR_INVALID_TRANSFORM: wl_surface_error = 1;
+
+#[repr(C)]
+pub type wl_seat_capability = uint32_t;
+pub const WL_SEAT_CAPABILITY_POINTER: wl_seat_capability = 1;
+pub const WL_SEAT_CAPABILITY_KEYBOARD: wl_seat_capability = 2;
+pub const WL_SEAT_CAPABILITY_TOUCH: wl_seat_capability = 4;
+
+#[repr(C)]
+pub type wl_pointer_error = uint32_t;
+pub const WL_POINTER_ERROR_ROLE: wl_pointer_error = 0;
+
+#[repr(C)]
+pub type wl_pointer_button_state = uint32_t;
+pub const WL_POINTER_BUTTON_STATE_RELEASED: wl_pointer_button_state = 0;
+pub const WL_POINTER_BUTTON_STATE_PRESSED: wl_pointer_button_state = 1;
+
+#[repr(C)]
+pub type wl_pointer_axis = uint32_t;
+pub const WL_POINTER_AXIS_VERTICAL_SCROLL: wl_pointer_axis = 0;
+pub const WL_POINTER_AXIS_HORIZONTAL_SCROLL: wl_pointer_axis = 1;
+
+#[repr(C)]
+pub type wl_keyboard_keymap_format = uint32_t;
+pub const WL_KEYBOARD_KEYMAP_FORMAT_NO_KEYMAP: wl_keyboard_keymap_format = 0;
+pub const WL_KEYBOARD_KEYMAP_FORMAT_XKB_V1: wl_keyboard_keymap_format = 1;
+
+#[repr(C)]
+pub type wl_keyboard_key_state = uint32_t;
+pub const WL_KEYBOARD_KEY_STATE_RELEASED: wl_keyboard_key_state = 0;
+pub const WL_KEYBOARD_KEY_STATE_PRESSED: wl_keyboard_key_state = 1;
+
+#[repr(C)]
+pub type wl_output_subpixel = uint32_t;
+pub const WL_OUTPUT_SUBPIXEL_UNKNOWN: wl_output_subpixel = 0;
+pub const WL_OUTPUT_SUBPIXEL_NONE: wl_output_subpixel = 1;
+pub const WL_OUTPUT_SUBPIXEL_HORIZONTAL_RGB: wl_output_subpixel = 2;
+pub const WL_OUTPUT_SUBPIXEL_HORIZONTAL_BGR: wl_output_subpixel = 3;
+pub const WL_OUTPUT_SUBPIXEL_VERTICAL_RGB: wl_output_subpixel = 4;
+pub const WL_OUTPUT_SUBPIXEL_VERTICAL_BGR: wl_output_subpixel = 5;
+
+#[repr(C)]
+pub type wl_output_transform = uint32_t;
+pub const WL_OUTPUT_TRANSFORM_NORMAL: wl_output_transform = 0;
+pub const WL_OUTPUT_TRANSFORM_90: wl_output_transform = 1;
+pub const WL_OUTPUT_TRANSFORM_180: wl_output_transform = 2;
+pub const WL_OUTPUT_TRANSFORM_270: wl_output_transform = 3;
+pub const WL_OUTPUT_TRANSFORM_FLIPPED: wl_output_transform = 4;
+pub const WL_OUTPUT_TRANSFORM_FLIPPED_90: wl_output_transform = 5;
+pub const WL_OUTPUT_TRANSFORM_FLIPPED_180: wl_output_transform = 6;
+pub const WL_OUTPUT_TRANSFORM_FLIPPED_270: wl_output_transform = 7;
+
+#[repr(C)]
+pub type wl_output_mode = uint32_t;
+pub const WL_OUTPUT_MODE_CURRENT: wl_output_mode = 0x1;
+pub const WL_OUTPUT_MODE_PREFERRED: wl_output_mode = 0x2;
+
+#[repr(C)]
+pub type wl_subcompositor_error = uint32_t;
+pub const WL_SUBCOMPOSITOR_ERROR_BAD_SURFACE: wl_subcompositor_error = 0;
+
+#[repr(C)]
+pub type wl_subsurface_error = uint32_t;
+pub const WL_SUBSURFACE_ERROR_BAD_SURFACE: wl_subsurface_error = 0;

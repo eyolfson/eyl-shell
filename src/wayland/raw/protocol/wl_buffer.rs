@@ -4,9 +4,9 @@ use raw;
 use raw::types::listeners;
 use raw::types::objects;
 
-pub static WL_BUFFER_DESTROY: uint32_t = 0;
+pub const WL_BUFFER_DESTROY: uint32_t = 0;
 
-#[inline]
+#[inline(always)]
 pub unsafe fn wl_buffer_add_listener(
     wl_buffer: *mut objects::wl_buffer,
     listener: *const listeners::wl_buffer_listener,
@@ -19,25 +19,28 @@ pub unsafe fn wl_buffer_add_listener(
     )
 }
 
-#[inline]
+#[inline(always)]
 pub unsafe fn wl_buffer_set_user_data(
     wl_buffer: *mut objects::wl_buffer,
     user_data: *mut c_void
 ) {
     raw::wl_proxy_set_user_data(
-        wl_buffer as *mut objects::wl_proxy, user_data
-    );
+        wl_buffer as *mut objects::wl_proxy,
+        user_data
+    )
 }
 
-#[inline]
+#[inline(always)]
 pub unsafe fn wl_buffer_get_user_data(
     wl_buffer: *mut objects::wl_buffer
 ) -> *mut c_void {
     raw::wl_proxy_get_user_data(wl_buffer as *mut objects::wl_proxy)
 }
 
-#[inline]
-pub unsafe fn wl_buffer_destroy(wl_buffer: *mut objects::wl_buffer) {
+#[inline(always)]
+pub unsafe fn wl_buffer_destroy(
+    wl_buffer: *mut objects::wl_buffer
+) {
     raw::wl_proxy_marshal(
         wl_buffer as *mut objects::wl_proxy,
         WL_BUFFER_DESTROY

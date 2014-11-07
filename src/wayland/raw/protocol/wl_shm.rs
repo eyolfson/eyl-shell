@@ -6,9 +6,9 @@ use raw;
 use raw::types::objects;
 use raw::types::listeners;
 
-pub static WL_SHM_CREATE_POOL: uint32_t = 0;
+pub const WL_SHM_CREATE_POOL: uint32_t = 0;
 
-#[inline]
+#[inline(always)]
 pub unsafe fn wl_shm_add_listener(
     wl_shm: *mut objects::wl_shm,
     listener: *const listeners::wl_shm_listener,
@@ -21,7 +21,30 @@ pub unsafe fn wl_shm_add_listener(
     )
 }
 
-#[inline]
+#[inline(always)]
+pub unsafe fn wl_shm_set_user_data(
+    wl_shm: *mut objects::wl_shm,
+    user_data: *mut c_void
+) {
+    raw::wl_proxy_set_user_data(
+        wl_shm as *mut objects::wl_proxy,
+        user_data
+    )
+}
+
+#[inline(always)]
+pub unsafe fn wl_shm_get_user_data(
+    wl_shm: *mut objects::wl_shm
+) -> *mut c_void {
+    raw::wl_proxy_get_user_data(wl_shm as *mut objects::wl_proxy)
+}
+
+#[inline(always)]
+pub unsafe fn wl_shm_destroy(wl_shm: *mut objects::wl_shm) {
+    raw::wl_proxy_destroy(wl_shm as *mut objects::wl_proxy)
+}
+
+#[inline(always)]
 pub unsafe fn wl_shm_create_pool(
     wl_shm: *mut objects::wl_shm,
     fd: int32_t,
@@ -36,9 +59,4 @@ pub unsafe fn wl_shm_create_pool(
         size
     );
     id as *mut objects::wl_shm_pool
-}
-
-#[inline]
-pub unsafe fn wl_shm_destroy(wl_shm: *mut objects::wl_shm) {
-    raw::wl_proxy_destroy(wl_shm as *mut objects::wl_proxy);
 }
