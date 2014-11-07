@@ -11,6 +11,9 @@ extern fn ping(
     serial: uint32_t
 ) {
     println!("wl_shell_surface.ping serial = {}", serial);
+    unsafe {
+        raw::wl_shell_surface_pong(wl_shell_surface, serial);
+    }
 }
 
 #[allow(unused_variables)]
