@@ -7,7 +7,7 @@ use raw::types::objects;
 use raw::types::listeners;
 use raw::types::utils;
 
-pub static WL_REGISTRY_BIND: uint32_t = 0;
+pub const WL_REGISTRY_BIND: uint32_t = 0;
 
 #[inline]
 pub unsafe fn wl_registry_add_listener(
