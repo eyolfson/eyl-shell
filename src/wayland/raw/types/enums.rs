@@ -1,12 +1,12 @@
-#![allow(non_camel_case_types)]
-
 use libc::uint32_t;
 
+#[repr(C)]
 pub type wl_display_error = uint32_t;
 pub static WL_DISPLAY_ERROR_INVALID_OBJECT: wl_display_error = 0;
 pub static WL_DISPLAY_ERROR_INVALID_METHOD: wl_display_error = 1;
 pub static WL_DISPLAY_ERROR_NO_MEMORY: wl_display_error = 2;
 
+#[repr(C)]
 pub type wl_shell_surface_fullscreen_method = uint32_t;
 pub static WL_SHELL_SURFACE_FULLSCREEN_METHOD_DEFAULT
     : wl_shell_surface_fullscreen_method = 0;
@@ -17,6 +17,7 @@ pub static WL_SHELL_SURFACE_FULLSCREEN_METHOD_DRIVER
 pub static WL_SHELL_SURFACE_FULLSCREEN_METHOD_FILL
     : wl_shell_surface_fullscreen_method = 3;
 
+#[repr(C)]
 pub type wl_shell_surface_resize = uint32_t;
 pub static WL_SHELL_SURFACE_RESIZE_NONE: wl_shell_surface_resize = 0;
 pub static WL_SHELL_SURFACE_RESIZE_TOP: wl_shell_surface_resize = 1;
@@ -28,14 +29,17 @@ pub static WL_SHELL_SURFACE_RESIZE_RIGHT: wl_shell_surface_resize = 8;
 pub static WL_SHELL_SURFACE_RESIZE_TOP_RIGHT: wl_shell_surface_resize = 9;
 pub static WL_SHELL_SURFACE_RESIZE_BOTTOM_RIGHT: wl_shell_surface_resize = 10;
 
+#[repr(C)]
 pub type wl_shell_surface_transient = uint32_t;
 pub static WL_SHELL_SURFACE_TRANSIENT_INACTIVE: wl_shell_surface_transient = 1;
 
+#[repr(C)]
 pub type wl_shm_error = uint32_t;
 pub static WL_SHM_ERROR_INVALID_FORMAT: wl_shm_error = 0;
 pub static WL_SHM_ERROR_INVALID_STRIDE: wl_shm_error = 1;
 pub static WL_SHM_ERROR_INVALID_FD: wl_shm_error = 2;
 
+#[repr(C)]
 pub type wl_shm_format = uint32_t;
 pub static WL_SHM_FORMAT_ARGB8888: wl_shm_format = 0;
 pub static WL_SHM_FORMAT_XRGB8888: wl_shm_format = 1;
@@ -96,6 +100,7 @@ pub static WL_SHM_FORMAT_YVU422: wl_shm_format = 0x36315659;
 pub static WL_SHM_FORMAT_YUV444: wl_shm_format = 0x34325559;
 pub static WL_SHM_FORMAT_YVU444: wl_shm_format = 0x34325659;
 
+#[repr(C)]
 pub type wl_surface_error = uint32_t;
 pub static WL_SURFACE_ERROR_INVALID_SCALE: wl_surface_error = 0;
 pub static WL_SURFACE_ERROR_INVALID_TRANSFORM: wl_surface_error = 1;

@@ -1,4 +1,16 @@
-use libc::{c_char, c_int, c_void, size_t};
+use libc::{c_char, c_int, c_void, int32_t, size_t, uint32_t};
+
+#[repr(C)]
+pub enum wl_argument {
+    i(int32_t),
+    u(uint32_t),
+    f(wl_fixed_t),
+    s(*const c_char),
+    o(*mut wl_object),
+    n(uint32_t),
+    a(*mut wl_array),
+    h(int32_t),
+}
 
 #[repr(C)]
 pub struct wl_array {
@@ -6,6 +18,9 @@ pub struct wl_array {
     pub alloc: size_t,
     pub data: *mut c_void,
 }
+
+#[repr(C)]
+pub type wl_fixed_t = uint32_t;
 
 #[repr(C)]
 pub struct wl_interface {
@@ -29,3 +44,6 @@ pub struct wl_message {
     pub signature: *const c_char,
     pub types: *mut *const wl_interface,
 }
+
+#[repr(C)]
+pub struct wl_object;
