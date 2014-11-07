@@ -1,16 +1,7 @@
-use libc::{c_char, c_int, c_void, int32_t, size_t, uint32_t};
+use libc::{c_char, c_int, c_void, size_t, uint32_t, uint64_t};
 
 #[repr(C)]
-pub enum wl_argument {
-    i(int32_t),
-    u(uint32_t),
-    f(wl_fixed_t),
-    s(*const c_char),
-    o(*mut wl_object),
-    n(uint32_t),
-    a(*mut wl_array),
-    h(int32_t),
-}
+pub type wl_argument = uint64_t;
 
 #[repr(C)]
 pub struct wl_array {
