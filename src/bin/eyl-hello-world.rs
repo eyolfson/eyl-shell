@@ -55,7 +55,7 @@ impl Drop for ShmFd {
 }
 
 fn main() {
-    let mut display = wayland::Display::new();
+    let mut display = wayland::Display::connect_to_env_or_default();
     let mut registry = wayland::Registry::new(&mut display);
     let shm_fd = ShmFd::new();
     let mut pool = registry.shm().create_pool(shm_fd.fd(), SIZE);

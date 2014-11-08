@@ -8,5 +8,5 @@ dependencies = [
 [[package]]
 name = "wayland"
 version = "0.0.1"
-source = "git+https://github.com/eyolfson/rust-wayland#8a10ad9288fc88b0ac468c8498a4590db9f9b9de"
+source = "git+https://github.com/eyolfson/rust-wayland#e60faf8997903c5c2c148b1927caf625cf6b58de"
 
